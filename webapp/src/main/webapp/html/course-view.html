@@ -1,0 +1,33 @@
+<div>
+  <h2>{{course.name}}</h2>
+  <div>
+    <form>
+      <div><label for="name">Name:</label> <input type="text" ng-model="course.name"/></div>
+      <div><a ng-click="update()" href="">Update</a> <a ng-click="delete()" href="">Delete</a></div>
+    </form>
+  </div>
+  <h3>Assignments</h3>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Assignment</th>
+          <th>Course weight</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="assignment in course.assignments | orderBy:'name'">
+          <td>{{ assignment.name }}</td>
+          <td>{{ assignment.courseWeight }}</td>
+          <td><a ng-click="viewAssignment(assignment)" href="">View</a></td>
+        </tr>
+        <tr>
+          <td><input type="text" ng-model="newAssignment.name"/></td>
+          <td><input type="text" ng-model="newAssignment.courseWeight"/></td>
+          <td><a ng-click="addAssignment(newAssignment)" href="">Add</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

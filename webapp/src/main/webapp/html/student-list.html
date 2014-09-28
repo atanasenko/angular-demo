@@ -1,0 +1,19 @@
+<div>
+    <table>
+        <thead>
+          <tr>
+              <th>Students</th>
+              <th>Avg. grade</th>
+              <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="student in students | orderBy:[avgGradeSort,'name']">
+              <td>{{ student.name }}</td>
+              <td>{{ avgGrade(student) }}</td>
+              <td><a ng-click="view(student)" href="">View</a></td>
+          </tr>
+        </tbody>
+    </table>
+    <a ng-click="add()" href="">Add student</a>
+</div>

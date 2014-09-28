@@ -1,0 +1,35 @@
+<div>
+  <h2>{{assignment.name}}</h2>
+  <h3><a ng-click="list()" href="">Back to course</a></h3>
+  <div>
+    <form>
+      <div><label for="name">Name:</label> <input type="text" ng-model="assignment.name"/></div>
+      <div><label for="courseWeight">Course weight:</label> <input type="text" ng-model="assignment.courseWeight"/></div>
+      <div><a ng-click="update()" href="">Update</a> <a ng-click="delete()" href="">Delete</a></div>
+    </form>
+  </div>
+  
+  <h3>Grades</h3>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Grade</th>
+          <th>&nbsp;</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="studentGrade in studentGrades">
+          <td>{{ studentGrade.name }}</td>
+          <td><input type="text" ng-model="studentGrade.grade"/></td>
+          <td><a ng-click="updateGrade(studentGrade)" href="">Set</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <label for="file">Upload grades</label>
+      <input id="file" type="file" nv-file-select="" multiple="" uploader="uploader"/> <span ng-repeat="item in uploader.queue"> {{ item.file.name }} <button ng-click="item.upload()">Upload</button></span>
+    </div>
+  </div>
+</div>

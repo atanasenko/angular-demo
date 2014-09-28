@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.sleepless.demo</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <relativePath>..</relativePath>
+  </parent>
+  
+  <artifactId>webapp</artifactId>
+  <packaging>war</packaging>
+  
+  <properties>
+    <h2.db.location>jdbc:h2:${project.build.directory}/test.db</h2.db.location>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>org.sleepless.demo</groupId>
+      <artifactId>web</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+    </dependency>
+  </dependencies>
+  <build>
+    <pluginManagement>
+      <plugins>
+         <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>sql-maven-plugin</artifactId>
+          <version>1.5</version>
+          <dependencies>
+            <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+              <version>1.4.181</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <escapeProcessing>false</escapeProcessing>
+            <driver>org.h2.Driver</driver>
+            <url>${h2.db.location}</url>
+            <skip>${maven.test.skip}</skip>
+            <orderFile>ascending</orderFile>
+            <fileset>
+              <basedir>${basedir}/src/test/resources</basedir>
+              <includes>
+                <include>db-init.sql</include>
+              </includes>
+            </fileset>
+          </configuration>
+        </plugin>
+        
+        <plugin>
+          <groupId>org.eclipse.jetty</groupId>
+          <artifactId>jetty-maven-plugin</artifactId>
+          <version>9.1.2.v20140210</version>
+          <dependencies>
+            <dependency>
+              <groupId>commons-dbcp</groupId>
+              <artifactId>commons-dbcp</artifactId>
+              <version>1.4</version>
+            </dependency>
+            <dependency>
+              <groupId>com.h2database</groupId>
+              <artifactId>h2</artifactId>
+              <version>1.4.181</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <systemProperties>
+              <systemProperty>
+                <name>h2.db.location</name>
+                <value>${h2.db.location}</value>
+              </systemProperty>
+            </systemProperties>
+            <useTestScope>true</useTestScope>
+            <scanIntervalSeconds>5</scanIntervalSeconds>
+            <contextPath>/</contextPath>
+            <webAppConfig>
+              <defaultsDescriptor>webapp/src/test/resources/webdefaults.xml</defaultsDescriptor>
+            </webAppConfig>
+            <jettyXml>${basedir}/src/test/resources/jetty-env.xml</jettyXml>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  
+  <profiles>
+    <profile>
+      <id>run-webapp</id>
+      <build>
+        <plugins>
+           <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sql-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>create-integration-test-data</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>execute</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          
+          <plugin>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>run</id>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <phase>verify</phase>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  
+  
+</project>

@@ -1,0 +1,17 @@
+<div>
+    <table>
+        <thead>
+          <tr>
+              <th>Courses</th>
+              <th>&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="course in courses | orderBy:name">
+              <td>{{ course.name }}</td>
+              <td><a ng-click="view(course)" href="">View</a></td>
+          </tr>
+        </tbody>
+    </table>
+    <a ng-click="add()" href="">Add course</a>
+</div>
