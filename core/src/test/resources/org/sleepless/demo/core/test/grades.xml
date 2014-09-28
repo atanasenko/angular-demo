@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<grades>
+  <grade name="john">5</grade>
+  <grade name="tom">3</grade>
+</grades>

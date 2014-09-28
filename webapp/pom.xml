@@ -83,6 +83,7 @@
             <scanIntervalSeconds>5</scanIntervalSeconds>
             <contextPath>/</contextPath>
             <webAppConfig>
+              <!-- override useFileMappedBuffer for windows -->
               <defaultsDescriptor>webapp/src/test/resources/webdefaults.xml</defaultsDescriptor>
             </webAppConfig>
             <jettyXml>${basedir}/src/test/resources/jetty-env.xml</jettyXml>

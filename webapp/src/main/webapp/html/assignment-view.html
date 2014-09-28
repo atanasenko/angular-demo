@@ -29,7 +29,8 @@
     </table>
     <div>
       <label for="file">Upload grades</label>
-      <input id="file" type="file" nv-file-select="" multiple="" uploader="uploader"/> <span ng-repeat="item in uploader.queue"> {{ item.file.name }} <button ng-click="item.upload()">Upload</button></span>
+      <input id="file" type="file" nv-file-select="" multiple="" uploader="uploader"/> <span ng-repeat="item in uploader.queue"> {{ item.file.name }} <button ng-click="item.upload()">Upload</button></span><br/>
+      <a href="/xml/example-grades.xml" target="_blank">Download example</a>
     </div>
   </div>
 </div>
